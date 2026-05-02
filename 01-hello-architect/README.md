@@ -8,9 +8,11 @@ By the end of this guide, you will have created, tested, and interacted with a l
 First, enter your Ubuntu container and install the necessary tools.
 
 ```
+pkg update && pkg upgrade -y
+pkg install proot-distro curl -y
+proot-distro install ubuntu
 proot-distro login ubuntu
 apt update && apt upgrade -y
-apt install curl git nano -y
 ```
 
 ### 2️⃣ Install Foundry
