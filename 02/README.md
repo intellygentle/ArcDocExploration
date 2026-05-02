@@ -1,4 +1,4 @@
-# 🚀 Mobile-First Guide: Deploy Smart Contracts on Arc Testnet Using Only Your Android Phone
+# Learn Arc On the Go: Deploy Smart Contracts on Arc Testnet Using Only Your Android Phone
 
 **Complete beginner-friendly guide** for deploying ERC-20, ERC-721, ERC-1155, and Airdrop contracts on **Arc Testnet** using **Termux + Ubuntu** on Android.  
 No PC required. Uses official Circle SDK (developer-controlled SCA wallets + Smart Contract Platform).
