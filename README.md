@@ -8,7 +8,7 @@ Welcome to the ultimate guide for building on **Arc Chain** using nothing but an
 ---
 
 ## 📱 Why Mobile?
-The next billion users will access the blockchain via mobile. By learning to deploy and manage contracts on **Termux**, you are mastering the most portable and accessible way to build on **Circle’s purpose-built L1**.
+By learning to deploy and manage contracts on **Termux**, you are mastering the most portable and accessible way to build on **Circle’s purpose-built L1**. This will make you have a hands-on understanding of Arc capabilities by experiencing the what has been explained in the Docs yourself while using your mobile.
 
 ---
 
