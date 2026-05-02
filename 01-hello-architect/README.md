@@ -7,9 +7,11 @@ By the end of this guide, you will have created, tested, and interacted with a l
 ### 1️⃣ Setting up the Environment
 First, enter your Ubuntu container and install the necessary tools.
 
-`proot-distro login ubuntu`
-`apt update && apt upgrade -y`
-`apt install curl git nano -y`
+```
+proot-distro login ubuntu
+apt update && apt upgrade -y
+apt install curl git nano -y
+```
 
 ### 2️⃣ Install Foundry
 Foundry is the toolkit we use to compile and deploy. Run this entire block:
