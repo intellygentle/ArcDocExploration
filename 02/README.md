@@ -431,4 +431,3 @@ Made for total novices by **Intellygentle** — share freely!
 Tested and working as of May 2026.
 
 Happy deploying! 🚀
-```
