@@ -8,7 +8,7 @@ No PC required. Uses official Circle SDK (developer-controlled SCA wallets + Sma
 - Circle handles RPC, gas sponsorship, and blockchain connection automatically.
 - No manual RPC URL needed (explained below).
 
-**Original official tutorial this guide follows**: [https://docs.arc.network/arc/tutorials/deploy-contracts](Link to doc page)
+**Original official tutorial this guide follows**: [Link to doc](https://docs.arc.network/arc/tutorials/deploy-contracts)
 
 ---
 
