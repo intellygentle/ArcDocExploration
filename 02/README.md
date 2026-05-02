@@ -22,7 +22,6 @@ No PC required. Uses official Circle SDK (developer-controlled SCA wallets + Sma
 ## Step 1: Install Termux + Ubuntu + Node.js
 
 Open **Termux** and run these commands one by one:
-
 ```bash
 pkg update && pkg upgrade -y
 pkg install proot-distro curl -y
@@ -38,12 +37,20 @@ apt install -y nodejs
 
 ## Step 2: Create Project & Install Packages
 
+*If you started from the previous guide which means you have the "hello-arc" folder already, then start from the "cd ~/hello-arc" command but if not, start from the " mkdir ~/hello-arc" command*
+
 ```bash
-mkdir ~/hello-arc && cd ~/hello-arc
+mkdir ~/hello-arc
+```
+move into the directory
+```
+cd ~/hello-arc
 npm init -y
 npm pkg set type=module
+```
 
 # One-click scripts
+```
 npm pkg set scripts.create-wallet="tsx --env-file=.env create-wallet.ts"
 npm pkg set scripts.deploy-erc20="tsx --env-file=.env deploy-erc20.ts"
 npm pkg set scripts.deploy-erc721="tsx --env-file=.env deploy-erc721.ts"
