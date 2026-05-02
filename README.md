@@ -15,7 +15,7 @@ By learning to deploy and manage contracts on **Termux**, you are mastering the 
 * **Key Skills:** Environment setup, Foundry installation, Smart Contract deployment.
 * [👉 Start Part 1](./01-hello-architect/README.md)
 
-### 🟡 Part 2: Creating circle SCA accounts, and deploying of contracts using circle sdk and api key
+### 🟢 Part 2: Creating circle SCA accounts, and deploying of contracts using circle sdk and api key
 *Install Node.js v22+
 Install Circle SDK.
 Circle Developer Account + Standard API Key.
@@ -23,7 +23,7 @@ Registered Entity Secret.
 Wallet Creation (Dev-Controlled SCA Wallet)Create wallet set.
 Create SCA wallet on ARC-TESTNET.
 Contract Deployment.
-Deployment Status Checking.* [](#)
+Deployment Status Checking.* [👉Start Part 2](https://github.com/intellygentle/ArcDocExploration/blob/2d53647224a742439ae025ea271fc9cd2a0d772a/02/README.md)
 
 ### 🔴 Part 3: Real-Time FX Swaps (Coming Soon)
 *Interacting with the StableFX engine for instant currency settlement.*
