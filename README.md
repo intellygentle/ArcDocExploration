@@ -1,14 +1,10 @@
 # ArcDocExploration
 
 # 🏗️ Arc Architect Mobile Series
-**Mastering the Arc Chain: From Setup to Global Stablecoin FX — All on your Phone.**
-
-Welcome to the ultimate guide for building on **Arc Chain** using nothing but an Android phone. This repository is designed for "Architects" who want to build the future of onchain finance without needing a high-end PC.
-
----
+**Mastering what Arc is building through practical exploration of the Arc doc to better understand how things work rather than just scrolling through text. This is mobile focused so you can practice on the go.**
 
 ## 📱 Why Mobile?
-By learning to deploy and manage contracts on **Termux**, you are mastering the most portable and accessible way to build on **Circle’s purpose-built L1**. This will make you have a hands-on understanding of Arc capabilities by experiencing the what has been explained in the Docs yourself while using your mobile.
+By learning to deploy and manage contracts on **Termux**, you are mastering the most portable and accessible way to build on **Arc’s purpose-built L1**. This will make you have a hands-on understanding of Arc capabilities by experiencing the what has been explained in the Docs yourself while using your mobile.
 
 ---
 
@@ -19,10 +15,15 @@ By learning to deploy and manage contracts on **Termux**, you are mastering the 
 * **Key Skills:** Environment setup, Foundry installation, Smart Contract deployment.
 * [👉 Start Part 1](./01-hello-architect/README.md)
 
-### 🟡 Part 2: Batching & Efficiency (Coming Soon)
-*Learn how to send hundreds of payouts in a single transaction using Arc’s batching infrastructure.*
-* **Key Skills:** `Multicall3From`, Batch scripts, Gas optimization in USDC.
-* [⌛ Coming Soon](#)
+### 🟡 Part 2: Creating circle SCA accounts, and deploying of contracts using circle sdk and api key
+*Install Node.js v22+
+Install Circle SDK.
+Circle Developer Account + Standard API Key.
+Registered Entity Secret.
+Wallet Creation (Dev-Controlled SCA Wallet)Create wallet set.
+Create SCA wallet on ARC-TESTNET.
+Contract Deployment.
+Deployment Status Checking.* [](#)
 
 ### 🔴 Part 3: Real-Time FX Swaps (Coming Soon)
 *Interacting with the StableFX engine for instant currency settlement.*
