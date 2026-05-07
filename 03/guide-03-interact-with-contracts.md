@@ -258,18 +258,6 @@ ERC20_TRANSACTION_ID=019c...     # from transactionId
 
 **Save:** `Ctrl+O` → Enter → `Ctrl+X`
 
-**Check status:**
-
-```bash
-nano .env
-# Set TRANSACTION_ID=019c... (your ERC20_TRANSACTION_ID)
-# Save
-
-npm run check-tx
-```
-
-Repeat `npm run check-tx` every 10–30 seconds until `"state": "COMPLETE"`.
-
 **Get the blockchain address:**
 
 ```bash
@@ -336,17 +324,8 @@ ERC721_CONTRACT_ID=...        # from contractIds[0]
 ERC721_TRANSACTION_ID=...     # from transactionId
 ```
 
-Check transaction:
 
-```bash
-nano .env
-# Set TRANSACTION_ID=... (your ERC721_TRANSACTION_ID)
-# Save
-
-npm run check-tx
-```
-
-Get address:
+**Get Contract Address**
 
 ```bash
 CONTRACT_TYPE=ERC721 npm run get-contract
@@ -405,14 +384,8 @@ ERC1155_CONTRACT_ID=...
 ERC1155_TRANSACTION_ID=...
 ```
 
-Check:
 
-```bash
-# Update TRANSACTION_ID in .env to your ERC1155_TRANSACTION_ID
-npm run check-tx
-```
-
-Get address:
+**Get address:**
 
 ```bash
 CONTRACT_TYPE=ERC1155 npm run get-contract
@@ -547,13 +520,9 @@ Run:
 npm run interact-erc20
 ```
 
-> **⚠️ Important:** After running this, copy the **mint** transaction ID, paste it into `.env` as `TRANSACTION_ID`, and run `npm run check-tx` until it says `COMPLETE`. Only then check the transfer transaction.
-
 ---
 
-### 5.2 ERC-721: Mint + Transfer (Fixed for SCA Wallets)
-
-Your recipient wallet is a **Smart Contract Account (SCA)** created by Circle. `safeTransferFrom` tries to call `onERC721Received()` on the recipient. If the SCA doesn't implement this callback, the transfer reverts. We use `transferFrom` instead.
+### 5.2 ERC-721: Mint + Transfer
 
 ```bash
 cat << 'EOF' > interact-erc721.ts
@@ -613,9 +582,6 @@ Run:
 ```bash
 npm run interact-erc721
 ```
-
-> **🤔 Why `transferFrom` instead of `safeTransferFrom`?**
-> `safeTransferFrom` checks if the recipient is a smart contract and ensures it can handle NFTs. But your recipient is a Circle SCA wallet. If that SCA doesn't implement the `onERC721Received` callback, the transfer reverts. `transferFrom` skips this check, so it works for any address.
 
 ---
 
@@ -688,46 +654,6 @@ The airdrop contract is a distribution machine. It needs:
 1. **Tokens to distribute** (from your ERC-20 contract)
 2. **Permission to move them** (approval)
 3. **Enough balance** (you must own what you're sending)
-
-### 6.1 Check Your ERC-20 Balance First
-
-```bash
-cat << 'EOF' > check-erc20-balance.ts
-import { initiateDeveloperControlledWalletsClient } from "@circle-fin/developer-controlled-wallets";
-
-const circleDeveloperSdk = initiateDeveloperControlledWalletsClient({
-  apiKey: process.env.CIRCLE_API_KEY!,
-  entitySecret: process.env.CIRCLE_ENTITY_SECRET!,
-});
-
-async function main() {
-  console.log("💰 Checking ERC-20 token balance...\n");
-  console.log(`   Wallet: ${process.env.WALLET_ADDRESS}`);
-  console.log(`   Token:  ${process.env.ERC20_CONTRACT_ADDRESS}\n`);
-
-  const response = await circleDeveloperSdk.createContractExecutionTransaction({
-    walletId: process.env.WALLET_ID!,
-    abiFunctionSignature: "balanceOf(address)",
-    abiParameters: [process.env.WALLET_ADDRESS!],
-    contractAddress: process.env.ERC20_CONTRACT_ADDRESS!,
-    fee: { type: "level", config: { feeLevel: "MEDIUM" } },
-  });
-
-  console.log("✅ Query submitted!");
-  console.log("   Transaction ID:", response.data?.id);
-  console.log("\n⏳ Check this with npm run check-tx, then verify on explorer.");
-  console.log("   Remember: 1000000000000000000 = 1 token (18 decimals).");
-}
-
-main().catch(console.error);
-EOF
-```
-
-```bash
-npx tsx --env-file=.env check-erc20-balance.ts
-```
-
-Copy the transaction ID, set it as `TRANSACTION_ID` in `.env`, and run `npm run check-tx`. Then look at the transaction on the block explorer to see your balance.
 
 > **If your balance is less than the amount you want to airdrop, mint more first.**
 
@@ -833,17 +759,9 @@ npm run approve-airdrop
 
 **Wait for it to show `COMPLETE` before the next step.**
 
-```bash
-nano .env
-# Set TRANSACTION_ID to the approval transaction ID
-# Save
-
-npm run check-tx
-```
-
 ### 6.4 Execute the Airdrop
 
-This script sends **1 token** to one recipient — safe even if you only minted once.
+This script sends **1 token** to one recipient
 
 ```bash
 cat << 'EOF' > interact-airdrop.ts
@@ -902,135 +820,8 @@ npm run interact-airdrop
 
 ---
 
-## Step 7: Diagnostic Tools
 
-### Debug Your Environment
 
-```bash
-cat << 'EOF' > debug-env.ts
-console.log("🔍 Checking environment variables...\n");
-
-const required = [
-  "CIRCLE_API_KEY",
-  "CIRCLE_ENTITY_SECRET",
-  "WALLET_ID",
-  "WALLET_ADDRESS",
-  "RECIPIENT_WALLET_ADDRESS",
-  "ERC20_CONTRACT_ADDRESS",
-  "ERC721_CONTRACT_ADDRESS",
-  "ERC1155_CONTRACT_ADDRESS",
-  "AIRDROP_CONTRACT_ADDRESS",
-];
-
-let allGood = true;
-for (const key of required) {
-  const val = process.env[key];
-  const isSet = val && val.trim() !== "" && !val.includes("PASTE");
-  const status = isSet ? "✅" : "❌ MISSING";
-  if (!isSet) allGood = false;
-  console.log(`${status} ${key} = ${isSet ? val.substring(0, 20) + "..." : "EMPTY"}`);
-}
-
-console.log(allGood ? "\n🎉 All required variables are set!" : "\n⚠️  Fill in the missing variables above before continuing.");
-EOF
-```
-
-```bash
-npx tsx --env-file=.env debug-env.ts
-```
-
-### Check Token Allowance
-
-```bash
-cat << 'EOF' > check-allowance.ts
-import { initiateDeveloperControlledWalletsClient } from "@circle-fin/developer-controlled-wallets";
-
-const circleDeveloperSdk = initiateDeveloperControlledWalletsClient({
-  apiKey: process.env.CIRCLE_API_KEY!,
-  entitySecret: process.env.CIRCLE_ENTITY_SECRET!,
-});
-
-async function main() {
-  console.log("🔍 Checking token allowance...\n");
-  console.log(`   Owner:    ${process.env.WALLET_ADDRESS}`);
-  console.log(`   Spender:  ${process.env.AIRDROP_CONTRACT_ADDRESS}`);
-  console.log(`   Token:    ${process.env.ERC20_CONTRACT_ADDRESS}\n`);
-
-  const response = await circleDeveloperSdk.createContractExecutionTransaction({
-    walletId: process.env.WALLET_ID!,
-    abiFunctionSignature: "allowance(address,address)",
-    abiParameters: [process.env.WALLET_ADDRESS!, process.env.AIRDROP_CONTRACT_ADDRESS!],
-    contractAddress: process.env.ERC20_CONTRACT_ADDRESS!,
-    fee: { type: "level", config: { feeLevel: "MEDIUM" } },
-  });
-
-  console.log("✅ Query submitted!");
-  console.log("   Transaction ID:", response.data?.id);
-  console.log("\n⏳ Check this transaction with npm run check-tx");
-  console.log("   If allowance is 0, your approval never worked.");
-  console.log("   If allowance is 10000000000000000000, you're good.");
-}
-
-main().catch(console.error);
-EOF
-```
-
-```bash
-npx tsx --env-file=.env check-allowance.ts
-```
-
----
-
-## Step 8: How to Check Any Transaction
-
-Every script prints a transaction ID. To check status:
-
-```bash
-nano .env
-# Set TRANSACTION_ID=... to the ID you want to check
-# Save
-
-npm run check-tx
-```
-
-Repeat every 10–30 seconds until `"state": "COMPLETE"`.
-
----
-
-## Troubleshooting
-
-| Problem | Solution |
-|---------|----------|
-| `CONTRACT_TYPE is missing` | Prefix the command: `CONTRACT_TYPE=ERC20 npm run get-contract` |
-| `ERC20_CONTRACT_ID is missing` | You haven't pasted the contractId into `.env` yet |
-| Transfer "succeeds" but no tokens move | You ran transfer before mint reached `COMPLETE`. Wait for mint to finish first. |
-| ERC-721 transfer fails silently | Use `transferFrom` (not `safeTransferFrom`) — SCA wallets reject the callback |
-| Airdrop shows "Success" but no tokens distributed | You didn't approve first, or approval was 0, or you don't have enough balance |
-| `"API parameter invalid"` on approval | `ERC20_CONTRACT_ADDRESS` or `AIRDROP_CONTRACT_ADDRESS` is empty in `.env` |
-| Transaction stuck on `PENDING` | Wait 30–60 seconds. Testnets are slower than mainnet |
-| `cannot find target wallet` | Your `WALLET_ID` is wrong. Run `npm run create-wallet` again |
-
----
-
-## How to Read Success vs Failure on the Explorer
-
-Go to your block explorer and paste the transaction hash.
-
-| What You See | Meaning |
-|--------------|---------|
-| Only `USDC` gas movement | ❌ Inner call reverted. No tokens moved. |
-| `USDC` gas **+** your `ERC-20` token moving from you → airdrop contract → recipient | ✅ Success! |
-
----
-
-## How to Return Later
-
-```bash
-proot-distro login ubuntu
-cd ~/hello-arc
-```
-
----
 
 ## Summary
 
@@ -1039,10 +830,12 @@ After completing this guide, you have:
 ✅ **Redeployed** all four contract types with a clean naming system  
 ✅ **Tracked** every contract ID, transaction ID, and blockchain address in one `.env` file  
 ✅ **Used** one universal `get-contract` script for all lookups  
-✅ **Minted** ERC-20 tokens and NFTs  
-✅ **Transferred** tokens and NFTs safely (including the SCA fix)  
-✅ **Checked balances** before spending  
-✅ **Approved** and **executed** a mass airdrop without silent failures  
+✅ **Minted and Transfered ERC-20 Tokens**  
+✅ **Minted ERC1155 Tokens**
+✅ **Created Airdrop Contract**
+✅ **Approved and executed airdrop using a separate airdrop contract**
+
+
 
 Your `.env` file is now a complete dashboard of your Arc Testnet empire — all managed from your phone.
 
