@@ -611,7 +611,10 @@ Run
 ```
 npx tsx --env-file=.env transfer-erc721.ts
 ```
+<img width="1200" height="1104" alt="Screenshot_2026-05-07-23-28-01-554_com lemurbrowser exts-edit" src="https://github.com/user-attachments/assets/d54ae5d8-5a7d-4e97-9360-336c2930e2a2" />
+
 ---
+
 
 ### 5.3 ERC-1155: Mint + Batch Transfer
 
