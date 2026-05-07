@@ -579,7 +579,7 @@ const circleDeveloperSdk = initiateDeveloperControlledWalletsClient({
 });
 
 async function main() {
-  const TOKEN_ID = "5";  // <-- CHANGE THIS to the token ID you want to transfer
+  const TOKEN_ID = "0";  // <-- CHANGE THIS to the token ID you want to transfer
 
   console.log(`📤 Transferring NFT #${TOKEN_ID}...`);
   console.log(`   From: ${process.env.WALLET_ADDRESS}`);
