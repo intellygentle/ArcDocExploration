@@ -47,26 +47,11 @@ In Guide 02, we used generic names like `CONTRACT_ID`. That works for one contra
 
 ### 2.1 Create Your New `.env`
 
-Run this block. It creates a fresh `.env` with **empty placeholders**. You will fill them in as you deploy.
+Run this block. It adds these variables to your `.env` file with **empty placeholders**. You will fill them in as you deploy.
 
 ```bash
 cat << 'EOF' > .env
-# ==========================================
-# CIRCLE API CREDENTIALS
-# ==========================================
-CIRCLE_API_KEY=PASTE_YOUR_FULL_API_KEY_HERE
-CIRCLE_ENTITY_SECRET=PASTE_YOUR_ENTITY_SECRET_HERE
-CIRCLE_WEB3_API_KEY=PASTE_YOUR_FULL_API_KEY_HERE
 
-# ==========================================
-# YOUR WALLET
-# ==========================================
-WALLET_ID=PASTE_YOUR_WALLET_ID_HERE
-WALLET_ADDRESS=PASTE_YOUR_WALLET_ADDRESS_HERE
-
-# ==========================================
-# SECOND WALLET (for receiving transfers)
-# Create this by running: npm run create-wallet
 # ==========================================
 RECIPIENT_WALLET_ADDRESS=PASTE_SECOND_WALLET_ADDRESS_HERE
 
