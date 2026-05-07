@@ -439,13 +439,6 @@ AIRDROP_CONTRACT_ID=...
 AIRDROP_TRANSACTION_ID=...
 ```
 
-Check:
-
-```bash
-# Update TRANSACTION_ID in .env to your AIRDROP_TRANSACTION_ID
-npm run check-tx
-```
-
 Get address:
 
 ```bash
@@ -453,6 +446,10 @@ CONTRACT_TYPE=AIRDROP npm run get-contract
 ```
 
 Paste `AIRDROP_CONTRACT_ADDRESS=0x...` into `.env`.
+
+
+by now, you should have all these in your env
+<img width="1200" height="872" alt="Screenshot_2026-05-07-22-01-48-118_com termux-edit" src="https://github.com/user-attachments/assets/876276c4-97d9-4e80-bed9-7862edc45d73" />
 
 ---
 
@@ -821,8 +818,6 @@ npm run interact-airdrop
 ---
 
 
-
-
 ## Summary
 
 After completing this guide, you have:
@@ -839,8 +834,11 @@ After completing this guide, you have:
 
 Your `.env` file is now a complete dashboard of your Arc Testnet empire — all managed from your phone.
 
-Made for total novices by **Intellygentle** — share freely!
+Be Sure to check api logs on circle console
+<img width="1200" height="2184" alt="Screenshot_2026-05-07-22-10-52-155_com android chrome-edit" src="https://github.com/user-attachments/assets/701cffb2-37ee-4b94-bcc3-85c6a1dfa2b0" />
 
-Tested and working as of May 2026.
+Also make sure to check your Circle wallet address in your env file on Arc testnet scan
+<img width="1200" height="2282" alt="Screenshot_2026-05-07-22-14-28-352_com lemurbrowser exts-edit" src="https://github.com/user-attachments/assets/f7108463-a4ff-460d-a996-c44abe0a3c4a" />
+
 
 Happy building! 🚀🚁
