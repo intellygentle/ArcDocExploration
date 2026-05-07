@@ -39,11 +39,7 @@ cd ~/hello-arc
 
 You are back where Guide 02 left you.
 
----
 
-## Step 2: The New `.env` Structure — Your Filing Cabinet
-
-In Guide 02, we used generic names like `CONTRACT_ID`. That works for one contract, but once you have four, it becomes a mess. This guide uses a **prefix system** so every contract has its own dedicated slot.
 
 ### 2.1 Create Your New `.env`
 
@@ -101,16 +97,15 @@ EOF
 nano .env
 ```
 
-**Save & exit:** `Ctrl+O` → Enter → `Ctrl+X`
+**Save & exit:** `Ctrl+S` → & → `Ctrl+X`
 
 > **🤔 Why so many empty lines?**
 > Think of `.env` as a form. Right now you are printing blank forms. As you deploy each contract, you will "fill in the form" with real IDs and addresses. This prevents you from accidentally using the wrong contract.
 
 ---
 
-## Step 3: Create the Universal Get-Contract Script
+## Step 3: Create the Get-Contract Script to Save your contract addresses into the env file
 
-Instead of four different scripts, you get **one script** that knows which contract to look up based on a prefix.
 
 ### 3.1 Create the Script
 
