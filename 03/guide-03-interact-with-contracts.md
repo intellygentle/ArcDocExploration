@@ -523,7 +523,7 @@ npm run interact-erc20
 
 ---
 
-### 5.2 ERC-721: Mint + Transfer
+### 5.2 ERC-721: Mint
 
 ```bash
 cat << 'EOF' > interact-erc721.ts
@@ -540,9 +540,9 @@ async function main() {
     process.exit(1);
   }
 
-  console.log("🚀 ERC-721 Interaction: Mint + transferFrom (safe for SCA wallets)\n");
+  console.log("🚀 ERC-721: Minting a new NFT\n");
 
-  console.log("🎨 Minting NFT #1...");
+  console.log("🎨 Minting NFT to your wallet...");
   const mintResponse = await circleDeveloperSdk.createContractExecutionTransaction({
     walletId: process.env.WALLET_ID!,
     abiFunctionSignature: "mintTo(address,string)",
@@ -554,24 +554,8 @@ async function main() {
     fee: { type: "level", config: { feeLevel: "MEDIUM" } },
   });
   console.log("✅ Mint initiated:", JSON.stringify(mintResponse.data, null, 2));
-  console.log(`\n⏳ WAIT for this mint to show COMPLETE before transferring!`);
-  console.log(`   Transaction ID: ${mintResponse.data?.id}\n`);
-
-  console.log("📤 Transferring NFT #1 to recipient...");
-  const transferResponse = await circleDeveloperSdk.createContractExecutionTransaction({
-    walletId: process.env.WALLET_ID!,
-    abiFunctionSignature: "transferFrom(address,address,uint256)",
-    abiParameters: [
-      process.env.WALLET_ADDRESS!,
-      process.env.RECIPIENT_WALLET_ADDRESS!,
-      "1",
-    ],
-    contractAddress: process.env.ERC721_CONTRACT_ADDRESS!,
-    fee: { type: "level", config: { feeLevel: "MEDIUM" } },
-  });
-  console.log("✅ Transfer initiated:", JSON.stringify(transferResponse.data, null, 2));
-  console.log(`   Transaction ID: ${transferResponse.data?.id}`);
-  console.log("\n🎉 Done!");
+  console.log(`\n📝 Transaction ID: ${mintResponse.data?.id}`);
+  console.log("\n⏳ Wait for COMPLETE, then use transfer-erc721.ts to send it to a friend.");
 }
 
 main().catch(console.error);
@@ -583,7 +567,50 @@ Run:
 ```bash
 npm run interact-erc721
 ```
+---
+### Transfer ERC721 NFT
+```
+cat << 'EOF' > transfer-erc721.ts
+import { initiateDeveloperControlledWalletsClient } from "@circle-fin/developer-controlled-wallets";
 
+const circleDeveloperSdk = initiateDeveloperControlledWalletsClient({
+  apiKey: process.env.CIRCLE_API_KEY!,
+  entitySecret: process.env.CIRCLE_ENTITY_SECRET!,
+});
+
+async function main() {
+  const TOKEN_ID = "5";  // <-- CHANGE THIS to the token ID you want to transfer
+
+  console.log(`📤 Transferring NFT #${TOKEN_ID}...`);
+  console.log(`   From: ${process.env.WALLET_ADDRESS}`);
+  console.log(`   To:   ${process.env.RECIPIENT_WALLET_ADDRESS}`);
+  console.log(`   Contract: ${process.env.ERC721_CONTRACT_ADDRESS}\n`);
+
+  const response = await circleDeveloperSdk.createContractExecutionTransaction({
+    walletId: process.env.WALLET_ID!,
+    abiFunctionSignature: "safeTransferFrom(address,address,uint256)",
+    abiParameters: [
+      process.env.WALLET_ADDRESS!,           // from = owner (you)
+      process.env.RECIPIENT_WALLET_ADDRESS!, // to = recipient
+      TOKEN_ID,
+    ],
+    contractAddress: process.env.ERC721_CONTRACT_ADDRESS!,
+    fee: { type: "level", config: { feeLevel: "MEDIUM" } },
+  });
+
+  console.log("✅ Transfer initiated:", JSON.stringify(response.data, null, 2));
+  console.log(`\n📝 Transaction ID: ${response.data?.id}`);
+  console.log("\n⏳ Check status with npm run check-tx");
+  console.log("   On the explorer, look for 'Tokens Transferred' showing your NFT moving.");
+}
+
+main().catch(console.error);
+EOF
+```
+Run
+```
+npx tsx --env-file=.env transfer-erc721.ts
+```
 ---
 
 ### 5.3 ERC-1155: Mint + Batch Transfer
