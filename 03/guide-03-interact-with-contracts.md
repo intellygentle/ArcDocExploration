@@ -517,6 +517,10 @@ Run:
 npm run interact-erc20
 ```
 
+<img width="1200" height="1077" alt="Screenshot_2026-05-07-22-31-56-186_com lemurbrowser exts-edit" src="https://github.com/user-attachments/assets/c940e0cd-b8e3-4815-b41c-5f166eb95017" />
+
+
+
 ---
 
 ### 5.2 ERC-721: Mint + Transfer
