@@ -82,13 +82,6 @@ Before starting, you need:
 - **Node.js 20+** installed (check with `node --version`)
 - A **Circle Developer Console** account with an API key (Standard Key) and registered Entity Secret
 
-> **Need to set up your Entity Secret?** Run:
-> ```bash
-> cd ~/hello-arc
-> npx tsx register-entity-secret.ts
-> ```
-> This generates and registers your Entity Secret with Circle. Copy the 64-character string it prints and save it in your `.env` file.
-
 ---
 
 ## Step 1: Add the Script to Your Project
@@ -100,13 +93,7 @@ cd ~/hello-arc
 ```
 
 Make sure you have the Circle SDK installed (you should already have it from earlier guides):
-
-```bash
-npm list @circle-fin/developer-controlled-wallets
-```
-
-If it's not installed, run:
-
+**Run**
 ```bash
 npm install @circle-fin/developer-controlled-wallets viem
 ```
@@ -115,18 +102,7 @@ npm install @circle-fin/developer-controlled-wallets viem
 
 ## Step 2: Configure Your Environment
 
-Your `.env` file should already have your Circle credentials from earlier guides. Verify it has these values:
-
-```bash
-cat ~/hello-arc/.env
-```
-
-You should see:
-
-```
-CIRCLE_API_KEY=YOUR_API_KEY
-CIRCLE_ENTITY_SECRET=YOUR_ENTITY_SECRET
-```
+Your `.env` file should already have your Circle credentials from earlier guides.
 
 If these values are missing, add them:
 
