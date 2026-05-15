@@ -64,7 +64,6 @@ Think of it like a job reference: you (owner) list your skills, but your former 
 
 ## ERC-8004 Contract Addresses (Arc Testnet)
 
-You'll need these addresses throughout the guide. **Copy them exactly:**
 
 | Contract | Address |
 |----------|---------|
