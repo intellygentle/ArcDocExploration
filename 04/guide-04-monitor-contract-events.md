@@ -401,6 +401,9 @@ This mints and transfers tokens — each action creates a Transfer event.
 
 If you used **webhook.site**: Go back to the tab you kept open. You should see new requests appearing with the event data.
 
+<img width="1200" height="2670" alt="Screenshot_2026-05-15-13-36-29-289_com lemurbrowser exts" src="https://github.com/user-attachments/assets/17b5f64c-2d8b-41fe-8e1f-7dd15c5c225c" />
+
+
 If you used **ngrok**: Check the terminal running `npm run webhook`. You should see the event details printed.
 
 ### 6.4 Retrieve Past Event Logs
