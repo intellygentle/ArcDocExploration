@@ -509,7 +509,9 @@ The airdrop contract emits Transfer events for each token it distributes — so 
 You can view all your monitors in the Circle Console:
 1. Go to **https://console.circle.com**
 2. Navigate to **Contracts** → **Monitoring**
-3. See all active monitors and their status
+3. <img width="1195" height="1590" alt="Screenshot_2026-05-15-15-43-44-006_com android chrome-edit" src="https://github.com/user-attachments/assets/d3c9cbb3-957a-4765-810b-665537333a17" />
+
+4. See all active monitors and their status
 
 ### Verify Webhook Delivery
 
